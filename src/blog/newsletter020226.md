@@ -2,7 +2,7 @@
 title: "¿Uso inteligencia artificial en el aula?"
 subtitle: "Diseño pedagógico antes que herramientas: cómo integro la IA en mis asignaturas universitarias"
 date: 2026-02-02
-image: /img/Newsletter020226_Portada.jpg
+image: /img/Newsletter020226_Portada.png
 tags:
   - IA en educación
   - Docencia universitaria
