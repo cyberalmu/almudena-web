@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pageTitle or title }} — {{ site.title }}</title>
+    <meta name="description" content="{{ description or site.description }}">
+    <meta property="og:title" content="{{ pageTitle or title }} — {{ site.title }}">
+    <meta property="og:description" content="{{ description or site.description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">Almudena Díaz García</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/#sobre-mi">Sobre mí</a></li>
+                <li><a href="/#trabajo">En qué trabajo</a></li>
+                <li><a href="/#testimonios">Opiniones</a></li>
+                <li><a href="/#newsletter">Newsletter</a></li>
+                <li><a href="/#medios">Medios</a></li>
+                <li><a href="/#contacto">Contacto</a></li>
+            </ul>
+            <button class="nav-mobile-toggle" id="navToggle" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    {% block content %}
+    {{ content | safe }}
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-logo">Almudena Díaz García</span>
+                <span class="footer-copy">© 2026 Todos los derechos reservados.</span>
+            </div>
+            <div class="footer-center">
+                <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+            </div>
+            <div class="footer-links">
+                <a href="/#sobre-mi">Sobre mí</a>
+                <a href="/#trabajo">En qué trabajo</a>
+                <a href="{{ site.linkedin }}" target="_blank">LinkedIn</a>
+                <a href="https://blogs.upm.es/masalladelcodigo/" target="_blank">Blog UPM</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealEls.forEach(el => observer.observe(el));
+
+        // Testimonials carousel
+        const track = document.getElementById('carouselTrack');
+        if (track) {
+            const slides = track.querySelectorAll('.carousel-slide');
+            const dotsContainer = document.getElementById('carouselDots');
+            const prevBtn = document.getElementById('carouselPrev');
+            const nextBtn = document.getElementById('carouselNext');
+            let current = 0;
+            let autoplay;
+
+            // Create dots
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goTo(i));
+                dotsContainer.appendChild(dot);
+            });
+
+            function goTo(index) {
+                slides[current].classList.remove('active');
+                dotsContainer.children[current].classList.remove('active');
+                current = (index + slides.length) % slides.length;
+                slides[current].classList.add('active');
+                dotsContainer.children[current].classList.add('active');
+                resetAutoplay();
+            }
+
+            function resetAutoplay() {
+                clearInterval(autoplay);
+                autoplay = setInterval(() => goTo(current + 1), 6000);
+            }
+
+            prevBtn.addEventListener('click', () => goTo(current - 1));
+            nextBtn.addEventListener('click', () => goTo(current + 1));
+
+            // Init
+            slides[0].classList.add('active');
+            autoplay = setInterval(() => goTo(current + 1), 6000);
+        }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

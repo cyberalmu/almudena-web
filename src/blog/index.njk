@@ -1,0 +1,41 @@
+---
+layout: base.njk
+pageTitle: Newsletter — IA, Educación y Transformación
+description: Archivo de la newsletter semanal de Almudena Díaz García sobre inteligencia artificial y educación.
+---
+
+<div class="blog-page">
+    <div class="blog-header">
+        <div class="section-label">Newsletter · Blog</div>
+        <div class="section-title">IA, Educación y Transformación</div>
+        <p class="section-subtitle">Archivo completo de reflexiones sobre inteligencia artificial y educación. Publicadas originalmente en LinkedIn.</p>
+    </div>
+
+    <div class="blog-grid">
+        {% for post in collections.posts %}
+        <a href="{{ post.url }}" class="blog-card {% if loop.first %}featured{% endif %}">
+            {% if post.data.image %}
+            <div class="blog-card-image">
+                <img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">
+            </div>
+            {% endif %}
+            <div>
+                <div class="blog-card-date">{{ post.date | readableDate }}</div>
+                <h2 class="blog-card-title">{{ post.data.title }}</h2>
+                <p class="blog-card-excerpt">{{ post.data.subtitle or (post.content | excerpt) }}</p>
+                {% if post.data.tags %}
+                <div class="blog-card-tags">
+                    {% for tag in post.data.tags %}{% if tag != "post" %}<span class="blog-card-tag">{{ tag }}</span>{% endif %}{% endfor %}
+                </div>
+                {% endif %}
+                <span class="blog-card-read">Leer artículo →</span>
+            </div>
+        </a>
+        {% else %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 0; color: var(--muted);">
+            <p style="font-family: var(--serif); font-size: 1.3rem; margin-bottom: 1rem;">Próximamente</p>
+            <p>Las publicaciones de la newsletter se irán añadiendo aquí. Mientras tanto, puedes leerlas en <a href="{{ site.linkedin }}" target="_blank">LinkedIn</a>.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>

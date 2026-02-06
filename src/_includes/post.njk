@@ -1,0 +1,56 @@
+---
+layout: base.njk
+---
+
+<article class="post-page">
+    <header class="post-header">
+        <div class="post-header-inner">
+            <a href="/blog/" class="post-back">← Todas las publicaciones</a>
+            {% if tags %}
+            <div class="post-tags-top">
+                {% for tag in tags %}{% if tag != "post" %}<span class="post-tag">{{ tag }}</span>{% endif %}{% endfor %}
+            </div>
+            {% endif %}
+            <h1 class="post-title">{{ title }}</h1>
+            <div class="post-meta">
+                <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
+                {% if readingTime %}<span class="post-meta-sep">·</span><span>{{ readingTime }} min de lectura</span>{% endif %}
+            </div>
+            {% if subtitle %}
+            <p class="post-subtitle">{{ subtitle }}</p>
+            {% endif %}
+        </div>
+    </header>
+
+    {% if image %}
+    <div class="post-hero-image">
+        <img src="{{ image }}" alt="{{ title }}" loading="eager">
+    </div>
+    {% endif %}
+
+    <div class="post-body">
+        <div class="post-content prose">
+            {{ content | safe }}
+        </div>
+
+        <aside class="post-sidebar">
+            <div class="post-sidebar-card">
+                <h4>Newsletter semanal</h4>
+                <p>Recibe análisis crítico sobre IA y educación directamente en LinkedIn.</p>
+                <a href="{{ site.linkedin }}" target="_blank" class="btn-primary btn-small">Suscríbete →</a>
+            </div>
+            {% if linkedinUrl %}
+            <div class="post-sidebar-card">
+                <h4>Comentar</h4>
+                <p>¿Quieres compartir tu opinión? Comenta en la publicación original.</p>
+                <a href="{{ linkedinUrl }}" target="_blank" class="btn-secondary btn-small">Ver en LinkedIn →</a>
+            </div>
+            {% endif %}
+        </aside>
+    </div>
+
+    <nav class="post-nav">
+        {% set previousPost = collections.posts | reverse %}
+        <a href="/blog/" class="post-nav-link">← Ver todas las publicaciones</a>
+    </nav>
+</article>
