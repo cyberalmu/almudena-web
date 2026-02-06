@@ -12,20 +12,6 @@ readingTime: 6
 linkedinUrl: "https://www.linkedin.com/pulse/uso-inteligencia-artificial-en-el-aula-almudena-diaz-hjcie"
 ---
 
----
-title: "¿Uso inteligencia artificial en el aula?"
-subtitle: "Diseño pedagógico antes que herramientas: cómo integro la IA en mis asignaturas universitarias"
-date: 2026-02-02
-image: /img/Newsletter020226_Portada.jpg
-tags:
-  - IA en educación
-  - Docencia universitaria
-  - Metodología
-  - Pedagogía crítica
-readingTime: 7
-linkedinUrl: "https://www.linkedin.com/pulse/uso-inteligencia-artificial-en-el-aula-almudena-diaz-hjcie"
----
-
 La respuesta corta es sí.
 
 La larga empieza bastante antes de pensar en herramientas.
